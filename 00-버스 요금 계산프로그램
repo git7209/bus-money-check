@@ -1,0 +1,67 @@
+#include <stdio.h>
+
+int main() {
+    int age_type;
+    float distance;
+    int transfer;
+    int base_fare;
+    int total_fare;
+    
+    printf("=== 버스 요금 계산 프로그램 ===\n\n");
+    
+    // 연령대 선택
+    printf("연령대를 선택하세요:\n");
+    printf("1. 성인 (만 19세 이상)\n");
+    printf("2. 청소년 (만 13세~18세)\n");
+    printf("3. 어린이 (만 6세~12세)\n");
+    printf("선택: ");
+    scanf("%d", &age_type);
+    
+    // 이동 거리 입력
+    printf("\n이동 거리를 입력하세요 (km): ");
+    scanf("%f", &distance);
+    
+    // 환승 여부 입력
+    printf("환승 하셨나요? (1: 예, 0: 아니오): ");
+    scanf("%d", &transfer);
+    
+    // 기본 요금 설정 (10km 기준)
+    if (age_type == 1) {
+        base_fare = 1400;  // 성인
+    } else if (age_type == 2) {
+        base_fare = 1000;  // 청소년
+    } else if (age_type == 3) {
+        base_fare = 700;   // 어린이
+    } else {
+        printf("\n잘못된 입력입니다.\n");
+        return 1;
+    }
+    
+    total_fare = base_fare;
+    
+    // 거리 추가 요금 계산 (10km 초과시 5km당 100원 추가)
+    if (distance > 10) {
+        int extra_distance = (int)(distance - 10);
+        int extra_sections = (extra_distance + 4) / 5;  // 5km 단위로 올림
+        total_fare += extra_sections * 100;
+    }
+    
+    // 환승 할인 (환승시 기본요금만 부과, 추가 요금 면제)
+    if (transfer == 1) {
+        printf("\n환승 할인이 적용되었습니다!\n");
+        total_fare = base_fare;
+    }
+    
+    // 결과 출력
+    printf("\n=== 요금 계산 결과 ===\n");
+    printf("연령대: ");
+    if (age_type == 1) printf("성인\n");
+    else if (age_type == 2) printf("청소년\n");
+    else printf("어린이\n");
+    
+    printf("이동 거리: %.1f km\n", distance);
+    printf("환승 여부: %s\n", transfer ? "예" : "아니오");
+    printf("총 요금: %d원\n", total_fare);
+    
+    return 0;
+}
