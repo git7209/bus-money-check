@@ -63,5 +63,4 @@ int main() {
     printf("환승 여부: %s\n", transfer ? "예" : "아니오");
     printf("총 요금: %d원\n", total_fare);
     
-    return 0;
 }
